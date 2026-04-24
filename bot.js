@@ -151,12 +151,17 @@ function parseTime(time) {
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
     
-   Проверка админа (ВРЕМЕННО ОТКЛЮЧЕНА)
-   if (['gen', 'del', 'list', 'reset'].includes(interaction.commandName)) {
-       if (!interaction.member.roles.cache.has(ADMIN_ROLE_ID)) {
-           return interaction.reply({ content: '❌ Нет прав!', ephemeral: true });
-       }
-   }
+const OWNER_ID = process.env.OWNER_ID;
+
+// Проверка: или ты владелец, или у тебя роль админа
+if (['gen', 'del', 'list', 'reset'].includes(interaction.commandName)) {
+    const isOwner = interaction.user.id === OWNER_ID;
+    const isAdmin = interaction.member.roles.cache.has(ADMIN_ROLE_ID);
+    
+    if (!isOwner && !isAdmin) {
+        return interaction.reply({ content: '❌ Нет прав!', ephemeral: true });
+    }
+}
     
     // Генерация ключа
     if (interaction.commandName === 'gen') {
