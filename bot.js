@@ -151,12 +151,12 @@ function parseTime(time) {
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
     
-    // Проверка админа
-    if (['gen', 'del', 'list', 'reset'].includes(interaction.commandName)) {
-        if (!interaction.member.roles.cache.has(ADMIN_ROLE_ID)) {
-            return interaction.reply({ content: '❌ Нет прав!', ephemeral: true });
-        }
-    }
+// Проверка админа (ВРЕМЕННО ОТКЛЮЧЕНА)
+// if (['gen', 'del', 'list', 'reset'].includes(interaction.commandName)) {
+//     if (!interaction.member.roles.cache.has(ADMIN_ROLE_ID)) {
+//         return interaction.reply({ content: '❌ Нет прав!', ephemeral: true });
+//     }
+// }
     
     // Генерация ключа
     if (interaction.commandName === 'gen') {
